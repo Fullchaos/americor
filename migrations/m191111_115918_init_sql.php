@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use yii\db\Migration;
 
@@ -7,12 +8,14 @@ use yii\db\Migration;
  */
 class m191111_115918_init_sql extends Migration
 {
-    private $initTables = [
+    /**
+     * @var string[]
+     */
+    private static $initTables = [
         'customer',
         'user',
         'history',
         'sms',
-
         'task',
         'call',
         'fax',
@@ -21,26 +24,31 @@ class m191111_115918_init_sql extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
+    public function safeUp(): void
     {
-        foreach ($this->initTables as $table) {
+        foreach (self::$initTables as $table) {
             foreach (file(__DIR__ . '/init/' . $table . '.sql') as $sql) {
                 $this->execute($sql);
             }
         }
     }
 
-    public function execute($sql, $params = [])
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return bool
+     */
+    public function execute($sql, $params = []): bool
     {
-        return trim($sql) && parent::execute($sql, $params);
+        return trim($sql) && $this->execute($sql, $params);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function safeDown()
+    public function safeDown(): void
     {
-        foreach (array_reverse($this->initTables) as $table) {
+        foreach (array_reverse(self::$initTables) as $table) {
             $this->delete($table);
         }
     }
