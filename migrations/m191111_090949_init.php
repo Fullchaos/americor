@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use yii\db\Migration;
 
@@ -10,10 +11,10 @@ class m191111_090949_init extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
+    public function safeUp(): void
     {
         $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
+        if ('mysql' === $this->db->driverName) {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
@@ -46,9 +47,17 @@ class m191111_090949_init extends Migration
             'detail' => $this->text(),
         ], $tableOptions);
 
-        $this->addForeignKey('fk_history__customer_id', 'history', 'customer_id', 'customer', 'id', 'RESTRICT', 'CASCADE');
-        $this->addForeignKey('fk_history__user_id', 'history', 'user_id', 'user', 'id', 'RESTRICT', 'CASCADE');
+        $this->addForeignKey(
+            'fk_history__customer_id',
+            'history',
+            'customer_id',
+            'customer',
+            'id',
+            'RESTRICT',
+            'CASCADE'
+        );
 
+        $this->addForeignKey('fk_history__user_id', 'history', 'user_id', 'user', 'id', 'RESTRICT', 'CASCADE');
 
         $this->createTable('{{%call}}', [
             'id' => $this->primaryKey(),

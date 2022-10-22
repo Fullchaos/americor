@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use app\models\search\HistorySearch;
 use yii\data\ActiveDataProvider;
@@ -6,10 +7,10 @@ use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
-/* @var $this yii\web\View */
-/* @var $dataProvider ActiveDataProvider */
-/* @var $model HistorySearch */
-/* @var $linkExport string */
+/* @var yii\web\View $this */
+/* @var ActiveDataProvider $dataProvider */
+/* @var HistorySearch $model */
+/* @var string $linkExport */
 
 ?>
 
@@ -32,7 +33,7 @@ use yii\widgets\Pjax;
     </div>
 </div>
 
-<?php echo ListView::widget([
+<?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_item',
     'options' => [
@@ -45,6 +46,6 @@ use yii\widgets\Pjax;
     ],
     'emptyTextOptions' => ['class' => 'empty p-20'],
     'layout' => '{items}{pager}',
-]); ?>
+]) ?>
 
 <?php Pjax::end(); ?>

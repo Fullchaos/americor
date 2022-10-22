@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\models;
 
@@ -8,24 +9,24 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "{{%user}}".
  *
- * @property integer $id
+ * @property int $id
  * @property string $username
  * @property string $email
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property int $status
+ * @property int $created_at
+ * @property int $updated_at
  * @property string $statusText
  */
 class User extends ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_HIDDEN = 1;
-    const STATUS_ACTIVE = 10;
+    public const STATUS_DELETED = 0;
+    public const STATUS_HIDDEN = 1;
+    public const STATUS_ACTIVE = 10;
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user}}';
     }
@@ -33,7 +34,7 @@ class User extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['username', 'created_at', 'updated_at'], 'required'],
@@ -57,7 +58,7 @@ class User extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -69,7 +70,7 @@ class User extends ActiveRecord
     /**
      * @return array
      */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
             self::STATUS_ACTIVE => Yii::t('app', 'Active'),

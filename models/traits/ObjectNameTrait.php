@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\models\traits;
 
@@ -8,7 +9,12 @@ use app\models\Fax;
 use app\models\Sms;
 use app\models\Task;
 use app\models\User;
+use yii\db\ActiveQuery;
+use yii\db\ActiveQueryInterface;
 
+/**
+ * Общий функционал моделей.
+ */
 trait ObjectNameTrait
 {
     public static $classes = [
@@ -21,9 +27,9 @@ trait ObjectNameTrait
     ];
 
     /**
-     * @param $name
+     * @param string $name
      * @param bool $throwException
-     * @return mixed
+     * @return ActiveQuery|ActiveQueryInterface|null
      */
     public function getRelation($name, $throwException = true)
     {
@@ -38,10 +44,10 @@ trait ObjectNameTrait
     }
 
     /**
-     * @param $className
+     * @param string $className
      * @return mixed
      */
-    public static function getObjectByTableClassName($className)
+    public static function getObjectByTableClassName(string $className): string
     {
         if (method_exists($className, 'tableName')) {
             return str_replace(['{', '}', '%'], '', $className::tableName());
@@ -54,10 +60,10 @@ trait ObjectNameTrait
      * @param $relation
      * @return string|null
      */
-    public static function getClassNameByRelation($relation)
+    public static function getClassNameByRelation($relation): ?string
     {
         foreach (self::$classes as $class) {
-            if (self::getObjectByTableClassName($class) == $relation) {
+            if (self::getObjectByTableClassName($class) === $relation) {
                 return $class;
             }
         }

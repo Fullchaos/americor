@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 use app\models\Call;
 use app\models\Customer;
 use app\models\History;
@@ -7,7 +8,7 @@ use app\models\Sms;
 use app\widgets\HistoryList\helpers\HistoryListHelper;
 use yii\helpers\Html;
 
-/** @var $model HistorySearch */
+/** @var HistorySearch $model */
 
 switch ($model->event) {
     case History::EVENT_CREATED_TASK:
@@ -28,13 +29,13 @@ switch ($model->event) {
         echo $this->render('_item_common', [
             'user' => $model->user,
             'body' => HistoryListHelper::getBodyByModel($model),
-            'footer' => $model->sms->direction == Sms::DIRECTION_INCOMING ?
+            'footer' => $model->sms->direction === Sms::DIRECTION_INCOMING ?
                 Yii::t('app', 'Incoming message from {number}', [
                     'number' => $model->sms->phone_from ?? ''
                 ]) : Yii::t('app', 'Sent message to {number}', [
                     'number' => $model->sms->phone_to ?? ''
                 ]),
-            'iconIncome' => $model->sms->direction == Sms::DIRECTION_INCOMING,
+            'iconIncome' => $model->sms->direction === Sms::DIRECTION_INCOMING,
             'footerDatetime' => $model->ins_ts,
             'iconClass' => 'icon-sms bg-dark-blue'
         ]);
@@ -80,8 +81,8 @@ switch ($model->event) {
     case History::EVENT_INCOMING_CALL:
     case History::EVENT_OUTGOING_CALL:
         /** @var Call $call */
-        $call = $model->call;
-        $answered = $call && $call->status == Call::STATUS_ANSWERED;
+    $call = $model->call;
+    $answered = $call && $call->status === Call::STATUS_ANSWERED;
 
         echo $this->render('_item_common', [
             'user' => $model->user,
@@ -90,7 +91,7 @@ switch ($model->event) {
             'footerDatetime' => $model->ins_ts,
             'footer' => isset($call->applicant) ? "Called <span>{$call->applicant->name}</span>" : null,
             'iconClass' => $answered ? 'md-phone bg-green' : 'md-phone-missed bg-red',
-            'iconIncome' => $answered && $call->direction == Call::DIRECTION_INCOMING
+            'iconIncome' => $answered && $call->direction === Call::DIRECTION_INCOMING
         ]);
         break;
     default:

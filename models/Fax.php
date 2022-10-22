@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\models;
 
@@ -9,30 +10,30 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "fax".
  *
- * @property integer $id
+ * @property int $id
  * @property string $ins_ts
- * @property integer $user_id
+ * @property int $user_id
  * @property string $from
  * @property string $to
- * @property integer $status
- * @property integer $direction
- * @property integer $type
+ * @property int $status
+ * @property int $direction
+ * @property int $type
  * @property string $typeText
  *
  * @property User $user
  */
 class Fax extends ActiveRecord
 {
-    const DIRECTION_INCOMING = 0;
-    const DIRECTION_OUTGOING = 1;
+    public const DIRECTION_INCOMING = 0;
+    public const DIRECTION_OUTGOING = 1;
 
-    const TYPE_POA_ATC = 'poa_atc';
-    const TYPE_REVOCATION_NOTICE = 'revocation_notice';
+    public const TYPE_POA_ATC = 'poa_atc';
+    public const TYPE_REVOCATION_NOTICE = 'revocation_notice';
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'fax';
     }
@@ -40,21 +41,27 @@ class Fax extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['type'], 'required'],
             [['ins_ts'], 'safe'],
             [['user_id'], 'integer'],
             [['from', 'to'], 'string'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [
+                ['user_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => User::class,
+                'targetAttribute' => ['user_id' => 'id']
+            ],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -68,7 +75,7 @@ class Fax extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
@@ -76,7 +83,7 @@ class Fax extends ActiveRecord
     /**
      * @return array
      */
-    public static function getTypeTexts()
+    public static function getTypeTexts(): array
     {
         return [
             self::TYPE_POA_ATC => Yii::t('app', 'POA/ATC'),

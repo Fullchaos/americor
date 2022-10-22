@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\models;
 
@@ -9,22 +10,22 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "{{%task}}".
  *
- * @property integer $id
- * @property integer $user_id
- * @property integer $customer_id
- * @property integer $status
+ * @property int $id
+ * @property int $user_id
+ * @property int $customer_id
+ * @property int $status
  * @property string $title
  * @property string $text
  * @property string $due_date
- * @property integer $priority
+ * @property int $priority
  * @property string $ins_ts
  *
  * @property string $stateText
  * @property string $state
  * @property string $subTitle
  *
- * @property boolean $isOverdue
- * @property boolean $isDone
+ * @property bool $isOverdue
+ * @property bool $isDone
  *
  * @property Customer $customer
  * @property User $user
@@ -35,18 +36,18 @@ use yii\db\ActiveRecord;
  */
 class Task extends ActiveRecord
 {
-    const STATUS_NEW = 0;
-    const STATUS_DONE = 1;
-    const STATUS_CANCEL = 3;
+    public const STATUS_NEW = 0;
+    public const STATUS_DONE = 1;
+    public const STATUS_CANCEL = 3;
 
-    const STATE_INBOX = 'inbox';
-    const STATE_DONE = 'done';
-    const STATE_FUTURE = 'future';
+    public const STATE_INBOX = 'inbox';
+    public const STATE_DONE = 'done';
+    public const STATE_FUTURE = 'future';
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%task}}';
     }
@@ -54,22 +55,34 @@ class Task extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_id', 'title'], 'required'],
             [['user_id', 'customer_id', 'status', 'priority'], 'integer'],
             [['text'], 'string'],
             [['title', 'object'], 'string', 'max' => 255],
-            [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::class, 'targetAttribute' => ['customer_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [
+                ['customer_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Customer::class,
+                'targetAttribute' => ['customer_id' => 'id']
+            ],
+            [
+                ['user_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => User::class,
+                'targetAttribute' => ['user_id' => 'id']
+            ],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -88,7 +101,7 @@ class Task extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getCustomer()
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
@@ -96,7 +109,7 @@ class Task extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
@@ -104,7 +117,7 @@ class Task extends ActiveRecord
     /**
      * @return array
      */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
             self::STATUS_NEW => Yii::t('app', 'New'),
@@ -117,7 +130,7 @@ class Task extends ActiveRecord
      * @param $value
      * @return int|mixed
      */
-    public function getStatusTextByValue($value)
+    public function getStatusTextByValue($value): int
     {
         return self::getStatusTexts()[$value] ?? $value;
     }
@@ -125,15 +138,15 @@ class Task extends ActiveRecord
     /**
      * @return mixed|string
      */
-    public function getStatusText()
+    public function getStatusText(): string
     {
-        return self::getStatusTextByValue($this->status);
+        return $this->getStatusTextByValue($this->status);
     }
 
     /**
      * @return array
      */
-    public static function getStateTexts()
+    public static function getStateTexts(): array
     {
         return [
             self::STATE_INBOX => Yii::t('app', 'Inbox'),
@@ -154,7 +167,7 @@ class Task extends ActiveRecord
     /**
      * @return bool
      */
-    public function getIsOverdue()
+    public function getIsOverdue(): bool
     {
         return $this->status !== self::STATUS_DONE && strtotime($this->due_date) < time();
     }
@@ -162,8 +175,8 @@ class Task extends ActiveRecord
     /**
      * @return bool
      */
-    public function getIsDone()
+    public function getIsDone(): bool
     {
-        return $this->status == self::STATUS_DONE;
+        return $this->status === self::STATUS_DONE;
     }
 }
