@@ -5,10 +5,11 @@ namespace app\models\history;
 
 use app\models\call\Call;
 use app\models\customer\Customer;
+use app\models\fax\Fax;
 use app\models\sms\Sms;
+use app\models\task\Task;
 use app\models\traits\ObjectNameTrait;
 use app\models\user\User;
-use task\Task;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -34,6 +35,7 @@ use yii\db\ActiveRecord;
  * @property Task $task
  * @property Sms $sms
  * @property Call $call
+ * @property Fax $fax
  */
 class HistoryActiveRecord extends ActiveRecord
 {
