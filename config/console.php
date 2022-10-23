@@ -1,9 +1,10 @@
 <?php
-/** @noinspection UsingInclusionReturnValueInspection допустимо в config. */
-declare(strict_types = 1);
-
+use yii\caching\FileCache;
 use yii\gii\Module;
 use yii\log\FileTarget;
+
+/** @noinspection UsingInclusionReturnValueInspection допустимо в config. */
+declare(strict_types = 1);
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -19,6 +20,10 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+        'cache' => [
+            // Требуется пока только для url менеджера, лучше заменить на Redis.
+            'class' => FileCache::class,
+        ],
         'log' => [
             'targets' => [
                 [

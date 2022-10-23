@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace app\models\call;
 
+use app\widgets\HistoryList\helpers\templates\CallTemplateFactory;
 use Yii;
 
 /**
@@ -10,6 +11,18 @@ use Yii;
  */
 class Call extends CallActiveRecord
 {
+    public const EVENT_INCOMING_CALL = 'incoming_call';
+    public const EVENT_OUTGOING_CALL = 'outgoing_call';
+
+    /**
+     * Можно определить разные шаблоны для отрисовки событий, если нужно.
+     * @var string[]
+     */
+    public const EVENTS = [
+        self::EVENT_INCOMING_CALL => CallTemplateFactory::class,
+        self::EVENT_OUTGOING_CALL => CallTemplateFactory::class,
+    ];
+
     /**
      * @return string
      */

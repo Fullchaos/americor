@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use app\models\user\User;
 use kartik\grid\Module;
+use yii\caching\FileCache;
 use yii\debug\Module as Debug;
 use yii\gii\Module as Gii;
 use yii\log\FileTarget;
@@ -22,6 +23,10 @@ $config = [
     ],
     'name' => 'Americor Test',
     'components' => [
+        'cache' => [
+            // Требуется пока только для url менеджера, лучше заменить на Redis.
+            'class' => FileCache::class,
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_KrWQvmDJum_stF3vIO3MgXIyKn-rX28',

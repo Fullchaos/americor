@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace app\models\sms;
 
+use app\widgets\HistoryList\helpers\templates\SmsTemplateFactory;
 use Yii;
 
 /**
@@ -10,6 +11,18 @@ use Yii;
  */
 class Sms extends SmsActiveRecord
 {
+    public const EVENT_INCOMING_SMS = 'incoming_sms';
+    public const EVENT_OUTGOING_SMS = 'outgoing_sms';
+
+    /**
+     * Можно определить разные шаблоны для отрисовки событий, если нужно.
+     * @var string[]
+     */
+    public const EVENTS = [
+        self::EVENT_INCOMING_SMS => SmsTemplateFactory::class,
+        self::EVENT_OUTGOING_SMS => SmsTemplateFactory::class,
+    ];
+
     public const DIRECTION_INCOMING = 0;
     public const DIRECTION_OUTGOING = 1;
 

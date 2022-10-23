@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace app\models\customer;
 
+use app\widgets\HistoryList\helpers\templates\CustomerQualityTemplateFactory;
+use app\widgets\HistoryList\helpers\templates\CustomerTypeTemplateFactory;
 use Yii;
 
 /**
@@ -10,6 +12,17 @@ use Yii;
  */
 class Customer extends CustomerActiveRecord
 {
+    public const EVENT_CUSTOMER_CHANGE_TYPE = 'customer_change_type';
+    public const EVENT_CUSTOMER_CHANGE_QUALITY = 'customer_change_quality';
+
+    /**
+     * @var string[]
+     */
+    public const EVENTS = [
+        self::EVENT_CUSTOMER_CHANGE_TYPE => CustomerTypeTemplateFactory::class,
+        self::EVENT_CUSTOMER_CHANGE_QUALITY => CustomerQualityTemplateFactory::class,
+    ];
+
     public const QUALITY_ACTIVE = 'active';
     public const QUALITY_REJECTED = 'rejected';
     public const QUALITY_COMMUNITY = 'community';

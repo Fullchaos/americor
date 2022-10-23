@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace app\models\task;
 
+use app\widgets\HistoryList\helpers\templates\TaskTemplateFactory;
 use Yii;
 
 /**
@@ -10,6 +11,20 @@ use Yii;
  */
 class Task extends TaskActiveRecord
 {
+    public const EVENT_CREATED_TASK = 'created_task';
+    public const EVENT_UPDATED_TASK = 'updated_task';
+    public const EVENT_COMPLETED_TASK = 'completed_task';
+
+    /**
+     * Можно определить разные шаблоны для отрисовки событий, если нужно.
+     * @var string[]
+     */
+    public const EVENTS = [
+        self::EVENT_CREATED_TASK => TaskTemplateFactory::class,
+        self::EVENT_UPDATED_TASK => TaskTemplateFactory::class,
+        self::EVENT_COMPLETED_TASK => TaskTemplateFactory::class,
+    ];
+
     public const STATUS_NEW = 0;
     public const STATUS_DONE = 1;
     public const STATUS_CANCEL = 3;

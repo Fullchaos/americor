@@ -10,7 +10,6 @@ declare(strict_types = 1);
 
 use app\models\history\History;
 use app\widgets\Export\Export;
-use app\widgets\HistoryList\helpers\HistoryListHelper;
 
 $filename = 'history';
 $filename .= '-' . time();
@@ -44,7 +43,7 @@ echo Export::widget([
         [
             'label' => Yii::t('app', 'Message'),
             'value' => static function(History $model) {
-                return strip_tags(HistoryListHelper::getBodyByModel($model));
+                return strip_tags($model->getTemplateFactory()->getBody() ?? '');
             }
         ]
     ],
