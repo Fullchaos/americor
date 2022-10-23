@@ -1,10 +1,9 @@
-<?php
+<?php /** @noinspection UsingInclusionReturnValueInspection допустимо в config */
+declare(strict_types = 1);
+
 use yii\caching\FileCache;
 use yii\gii\Module;
 use yii\log\FileTarget;
-
-/** @noinspection UsingInclusionReturnValueInspection допустимо в config. */
-declare(strict_types = 1);
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
