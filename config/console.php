@@ -1,4 +1,5 @@
 <?php
+/** @noinspection UsingInclusionReturnValueInspection допустимо в config. */
 declare(strict_types = 1);
 
 use yii\gii\Module;

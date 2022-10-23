@@ -1,7 +1,8 @@
 <?php
+/** @noinspection UsingInclusionReturnValueInspection Допустимо в config. */
 declare(strict_types = 1);
 
-use app\models\User;
+use app\models\user\User;
 use kartik\grid\Module;
 use yii\debug\Module as Debug;
 use yii\gii\Module as Gii;

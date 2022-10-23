@@ -13,7 +13,6 @@ use yii\web\ErrorAction;
  */
 class SiteController extends Controller
 {
-
     /**
      * {@inheritdoc}
      */
