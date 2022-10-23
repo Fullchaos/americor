@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-use app\models\History;
+use app\models\history\History;
 use app\widgets\DateTime\DateTime;
 
 /* @var History $model */

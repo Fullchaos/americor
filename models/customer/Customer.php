@@ -1,18 +1,14 @@
 <?php
 declare(strict_types = 1);
 
-namespace app\models;
+namespace app\models\customer;
 
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "{{%customer}}".
- *
- * @property int $id
- * @property string $name
+ * Бизнес логика клиентов.
  */
-class Customer extends ActiveRecord
+class Customer extends CustomerActiveRecord
 {
     public const QUALITY_ACTIVE = 'active';
     public const QUALITY_REJECTED = 'rejected';
@@ -23,34 +19,6 @@ class Customer extends ActiveRecord
     public const TYPE_LEAD = 'lead';
     public const TYPE_DEAL = 'deal';
     public const TYPE_LOAN = 'loan';
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName(): string
-    {
-        return '{{%customer}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules(): array
-    {
-        return [
-            [['name'], 'string', 'max' => 255],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels(): array
-    {
-        return [
-            'name' => Yii::t('app', 'Name'),
-        ];
-    }
 
     /**
      * @return array

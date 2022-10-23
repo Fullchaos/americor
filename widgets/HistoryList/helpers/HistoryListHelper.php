@@ -1,13 +1,21 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\widgets\HistoryList\helpers;
 
-use app\models\Call;
-use app\models\Customer;
-use app\models\History;
+use app\models\call\Call;
+use app\models\customer\Customer;
+use app\models\history\History;
 
+/**
+ * Помощник для истории.
+ */
 class HistoryListHelper
 {
+    /**
+     * @param History $model
+     * @return string
+     */
     public static function getBodyByModel(History $model)
     {
         switch ($model->event) {
@@ -18,7 +26,7 @@ class HistoryListHelper
                 return "$model->eventText: " . ($task->title ?? '');
             case History::EVENT_INCOMING_SMS:
             case History::EVENT_OUTGOING_SMS:
-                return $model->sms->message ? $model->sms->message : '';
+                return $model->sms->message ?: '';
             case History::EVENT_OUTGOING_FAX:
             case History::EVENT_INCOMING_FAX:
                 return $model->eventText;

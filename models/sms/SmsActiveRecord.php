@@ -1,8 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace app\models;
+namespace app\models\sms;
 
+use app\models\customer\Customer;
+use app\models\user\User;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -28,24 +30,8 @@ use yii\db\ActiveRecord;
  * @property Customer $customer
  * @property User $user
  */
-class Sms extends ActiveRecord
+class SmsActiveRecord extends ActiveRecord
 {
-    public const DIRECTION_INCOMING = 0;
-    public const DIRECTION_OUTGOING = 1;
-
-    // incoming
-    public const STATUS_NEW = 0;
-    public const STATUS_READ = 1;
-    public const STATUS_ANSWERED = 2;
-
-    // outgoing
-    public const STATUS_DRAFT = 10;
-    public const STATUS_WAIT = 11;
-    public const STATUS_SENT = 12;
-    public const STATUS_DELIVERED = 13;
-    public const STATUS_FAILED = 14;
-    public const STATUS_SUCCESS = 13;
-
     /**
      * @inheritdoc
      */
@@ -118,67 +104,5 @@ class Sms extends ActiveRecord
     public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getStatusTexts(): array
-    {
-        return [
-            self::STATUS_NEW => Yii::t('app', 'New'),
-            self::STATUS_READ => Yii::t('app', 'Read'),
-            self::STATUS_ANSWERED => Yii::t('app', 'Answered'),
-
-            self::STATUS_DRAFT => Yii::t('app', 'Draft'),
-            self::STATUS_WAIT => Yii::t('app', 'Wait'),
-            self::STATUS_SENT => Yii::t('app', 'Sent'),
-            self::STATUS_DELIVERED => Yii::t('app', 'Delivered'),
-        ];
-    }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    public static function getStatusTextByValue($value): string
-    {
-        return self::getStatusTexts()[$value] ?? $value;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getStatusText(): string
-    {
-        return self::getStatusTextByValue($this->status);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getDirectionTexts(): array
-    {
-        return [
-            self::DIRECTION_INCOMING => Yii::t('app', 'Incoming'),
-            self::DIRECTION_OUTGOING => Yii::t('app', 'Outgoing'),
-        ];
-    }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    public static function getDirectionTextByValue($value): string
-    {
-        return self::getDirectionTexts()[$value] ?? $value;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getDirectionText(): string
-    {
-        return self::getDirectionTextByValue($this->direction);
     }
 }

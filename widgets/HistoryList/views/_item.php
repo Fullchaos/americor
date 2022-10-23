@@ -1,10 +1,11 @@
 <?php
 declare(strict_types = 1);
-use app\models\Call;
-use app\models\Customer;
-use app\models\History;
-use app\models\search\HistorySearch;
-use app\models\Sms;
+
+use app\models\call\Call;
+use app\models\customer\Customer;
+use app\models\history\History;
+use app\models\history\HistorySearch;
+use app\models\sms\Sms;
 use app\widgets\HistoryList\helpers\HistoryListHelper;
 use yii\helpers\Html;
 

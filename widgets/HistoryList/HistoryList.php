@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace app\widgets\HistoryList;
 
-use app\models\search\HistorySearch;
+use app\models\history\HistorySearch;
 use app\widgets\Export\Export;
 use Yii;
 use yii\base\Widget;

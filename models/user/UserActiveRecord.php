@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace app\models;
+namespace app\models\user;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -17,12 +17,8 @@ use yii\db\ActiveRecord;
  * @property int $updated_at
  * @property string $statusText
  */
-class User extends ActiveRecord
+class UserActiveRecord extends ActiveRecord
 {
-    public const STATUS_DELETED = 0;
-    public const STATUS_HIDDEN = 1;
-    public const STATUS_ACTIVE = 10;
-
     /**
      * @inheritdoc
      */
@@ -50,8 +46,8 @@ class User extends ActiveRecord
 
             [['username'], 'unique'],
 
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_HIDDEN]],
+            ['status', 'default', 'value' => User::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [User::STATUS_ACTIVE, User::STATUS_DELETED, User::STATUS_HIDDEN]],
         ];
     }
 
@@ -65,25 +61,5 @@ class User extends ActiveRecord
             'username' => Yii::t('app', 'Username (login)'),
             'statusText' => Yii::t('app', 'Status'),
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public static function getStatusTexts(): array
-    {
-        return [
-            self::STATUS_ACTIVE => Yii::t('app', 'Active'),
-            self::STATUS_DELETED => Yii::t('app', 'Deleted'),
-            self::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatusText()
-    {
-        return self::getStatusTexts()[$this->status] ?? $this->status;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-use app\models\search\HistorySearch;
+use app\models\history\HistorySearch;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\widgets\ListView;

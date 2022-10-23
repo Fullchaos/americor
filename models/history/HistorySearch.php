@@ -1,9 +1,8 @@
 <?php
 declare(strict_types = 1);
 
-namespace app\models\search;
+namespace app\models\history;
 
-use app\models\History;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-use app\models\User;
+use app\models\user\User;
 use app\widgets\DateTime\DateTime;
 use yii\helpers\Html;
 
