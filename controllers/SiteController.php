@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace app\controllers;
 
-use app\models\search\HistorySearch;
+use app\models\history\HistorySearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\ErrorAction;

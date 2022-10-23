@@ -8,7 +8,7 @@ declare(strict_types = 1);
  * @var string $exportType
  */
 
-use app\models\History;
+use app\models\history\History;
 use app\widgets\Export\Export;
 use app\widgets\HistoryList\helpers\HistoryListHelper;
 
