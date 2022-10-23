@@ -16,7 +16,7 @@ class HistoryListHelper
      * @param History $model
      * @return string
      */
-    public static function getBodyByModel(History $model)
+    public static function getBodyByModel(History $model): ?string
     {
         switch ($model->event) {
             case History::EVENT_CREATED_TASK:
@@ -27,17 +27,14 @@ class HistoryListHelper
             case History::EVENT_INCOMING_SMS:
             case History::EVENT_OUTGOING_SMS:
                 return $model->sms->message ?: '';
-            case History::EVENT_OUTGOING_FAX:
-            case History::EVENT_INCOMING_FAX:
-                return $model->eventText;
             case History::EVENT_CUSTOMER_CHANGE_TYPE:
                 return "$model->eventText " .
-                    (Customer::getTypeTextByType($model->getDetailOldValue('type')) ?? "not set") . ' to ' .
-                    (Customer::getTypeTextByType($model->getDetailNewValue('type')) ?? "not set");
+                    (Customer::getTypeTextByType($model->getDetailValue('type', 'old')) ?? "not set") . ' to ' .
+                    (Customer::getTypeTextByType($model->getDetailValue('type', 'old')) ?? "not set");
             case History::EVENT_CUSTOMER_CHANGE_QUALITY:
                 return "$model->eventText " .
-                    (Customer::getQualityTextByQuality($model->getDetailOldValue('quality')) ?? "not set") . ' to ' .
-                    (Customer::getQualityTextByQuality($model->getDetailNewValue('quality')) ?? "not set");
+                    (Customer::getQualityTextByQuality($model->getDetailValue('quality', 'old')) ?? "not set") . ' to ' .
+                    (Customer::getQualityTextByQuality($model->getDetailValue('quality', 'new')) ?? "not set");
             case History::EVENT_INCOMING_CALL:
             case History::EVENT_OUTGOING_CALL:
                 /** @var Call $call */

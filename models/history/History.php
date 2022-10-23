@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace app\models\history;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * Бизнес логика модели историй.
@@ -68,42 +69,13 @@ class History extends HistoryActiveRecord
     }
 
     /**
-     * @param $attribute
-     * @return null
+     * @param string $attribute Атрибут который пытаемся вытащить.
+     * @param string $type Тип значения old|new.
+     * @return string|null
      */
-    public function getDetailChangedAttribute($attribute)
+    public function getDetailValue(string $attribute, string $type): ?string
     {
         $detail = json_decode($this->detail);
-        return $detail->changedAttributes->{$attribute} ?? null;
-    }
-
-    /**
-     * @param $attribute
-     * @return null
-     */
-    public function getDetailOldValue($attribute)
-    {
-        $detail = $this->getDetailChangedAttribute($attribute);
-        return $detail->old ?? null;
-    }
-
-    /**
-     * @param $attribute
-     * @return null
-     */
-    public function getDetailNewValue($attribute)
-    {
-        $detail = $this->getDetailChangedAttribute($attribute);
-        return $detail->new ?? null;
-    }
-
-    /**
-     * @param $attribute
-     * @return null
-     */
-    public function getDetailData($attribute)
-    {
-        $detail = json_decode($this->detail);
-        return $detail->data->{$attribute} ?? null;
+        return ArrayHelper::getValue($detail->changedAttributes->{$attribute} ?? [], $type);
     }
 }

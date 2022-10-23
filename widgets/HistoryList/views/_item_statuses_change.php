@@ -21,7 +21,7 @@ use app\widgets\DateTime\DateTime;
     </div>
 
 <?php if (isset($model->user)): ?>
-    <div class="bg-info"><?= $model->user->username; ?></div>
+    <div class="bg-info"><?= $model->user->username ?></div>
 <?php endif; ?>
 
 <?php if (isset($content) && $content): ?>

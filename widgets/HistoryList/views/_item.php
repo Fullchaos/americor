@@ -68,15 +68,15 @@ switch ($model->event) {
     case History::EVENT_CUSTOMER_CHANGE_TYPE:
         echo $this->render('_item_statuses_change', [
             'model' => $model,
-            'oldValue' => Customer::getTypeTextByType($model->getDetailOldValue('type')),
-            'newValue' => Customer::getTypeTextByType($model->getDetailNewValue('type'))
+            'oldValue' => Customer::getTypeTextByType($model->getDetailValue('type', 'old')),
+            'newValue' => Customer::getTypeTextByType($model->getDetailValue('type', 'new'))
         ]);
         break;
     case History::EVENT_CUSTOMER_CHANGE_QUALITY:
         echo $this->render('_item_statuses_change', [
             'model' => $model,
-            'oldValue' => Customer::getQualityTextByQuality($model->getDetailOldValue('quality')),
-            'newValue' => Customer::getQualityTextByQuality($model->getDetailNewValue('quality')),
+            'oldValue' => Customer::getQualityTextByQuality($model->getDetailValue('quality', 'old')),
+            'newValue' => Customer::getQualityTextByQuality($model->getDetailValue('quality', 'new')),
         ]);
         break;
     case History::EVENT_INCOMING_CALL:
