@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
 
-namespace app\models\search;
+namespace app\models\history;
 
-use app\models\History;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -16,7 +16,7 @@ class HistorySearch extends History
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
@@ -24,7 +24,7 @@ class HistorySearch extends History
     /**
      * @inheritdoc
      */
-    public function scenarios()
+    public function scenarios(): array
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
@@ -37,7 +37,7 @@ class HistorySearch extends History
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search(array $params): ActiveDataProvider
     {
         $query = History::find();
 

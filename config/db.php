@@ -1,7 +1,10 @@
 <?php
+declare(strict_types = 1);
+
+use yii\db\Connection;
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => Connection::class,
     'dsn' => 'mysql:host=americor-mysql;dbname=americor-test',
     'username' => 'root',
     'password' => 'root',

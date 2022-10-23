@@ -1,15 +1,22 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\widgets\Export;
 
 use kartik\export\ExportMenu;
 use Yii;
 
+/**
+ * Виджет экспорта.
+ */
 class Export extends ExportMenu
 {
     public $exportType = self::FORMAT_CSV;
 
-    public function init()
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
     {
         if (empty($this->options['id'])) {
             $this->options['id'] = $this->getId();

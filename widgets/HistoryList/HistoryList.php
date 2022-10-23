@@ -1,20 +1,24 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\widgets\HistoryList;
 
-use app\models\search\HistorySearch;
+use app\models\history\HistorySearch;
 use app\widgets\Export\Export;
+use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use Yii;
 
+/**
+ * Виджет истории.
+ */
 class HistoryList extends Widget
 {
     /**
      * @return string
      */
-    public function run()
+    public function run(): string
     {
         $model = new HistorySearch();
 
@@ -28,7 +32,7 @@ class HistoryList extends Widget
     /**
      * @return string
      */
-    private function getLinkExport()
+    private function getLinkExport(): string
     {
         $params = Yii::$app->getRequest()->getQueryParams();
         $params = ArrayHelper::merge([

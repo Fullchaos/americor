@@ -1,12 +1,16 @@
 <?php
+declare(strict_types = 1);
 
 namespace app\widgets\DateTime;
 
 use Exception;
-use yii\base\Widget;
 use Yii;
+use yii\base\Widget;
 use yii\helpers\Html;
 
+/**
+ * Виджет календаря.
+ */
 class DateTime extends Widget
 {
     public $dateTime;
@@ -15,7 +19,7 @@ class DateTime extends Widget
      * @return string
      * @throws Exception
      */
-    public function run()
+    public function run(): string
     {
         return
             Html::tag('i', '', ['class' => "icon glyphicon glyphicon-time"]) . " " .
